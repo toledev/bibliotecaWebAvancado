@@ -1,0 +1,70 @@
+@BibliotecaApi_HostAddress = http://localhost:5056
+
+GET {{BibliotecaApi_HostAddress}}/api/books
+Accept: application/json
+
+###
+
+GET {{BibliotecaApi_HostAddress}}/api/books/1
+Accept: application/json
+
+###
+
+POST {{BibliotecaApi_HostAddress}}/api/books
+Content-Type: application/json
+
+{
+  "title": "Arquitetura Limpa",
+  "isbn": "9788550804606",
+  "publishedYear": 2019,
+  "genre": "Technology",
+  "copiesAvailable": 4,
+  "authorId": 2
+}
+
+###
+
+PUT {{BibliotecaApi_HostAddress}}/api/books/1
+Content-Type: application/json
+
+{
+  "title": "Dom Casmurro",
+  "isbn": "9788535910663",
+  "publishedYear": 1899,
+  "genre": "Romance",
+  "copiesAvailable": 5,
+  "authorId": 1
+}
+
+###
+
+DELETE {{BibliotecaApi_HostAddress}}/api/books/3
+
+###
+
+GET {{BibliotecaApi_HostAddress}}/api/authors
+Accept: application/json
+
+###
+
+POST {{BibliotecaApi_HostAddress}}/api/loans
+Content-Type: application/json
+
+{
+  "bookId": 1,
+  "memberId": 1
+}
+
+###
+
+PUT {{BibliotecaApi_HostAddress}}/api/loans/1/return
+Content-Type: application/json
+
+{
+  "returnDate": "2026-05-15"
+}
+
+###
+
+GET {{BibliotecaApi_HostAddress}}/api/loans/overdue
+Accept: application/json
