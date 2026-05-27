@@ -86,6 +86,24 @@ public class BooksController : ControllerBase
         return Ok(ToResponse(updatedBook!));
     }
 
+    [HttpPatch("{id:int}/copies")]
+    public async Task<ActionResult<BookResponseDto>> UpdateCopies(int id, BookCopiesPatchDto request)
+    {
+        var book = await _repository.GetByIdAsync(id);
+        if (book is null)
+        {
+            return NotFound();
+        }
+
+        book.CopiesAvailable = request.CopiesAvailable;
+
+        _repository.Update(book);
+        await _repository.SaveChangesAsync();
+
+        var updatedBook = await _repository.GetByIdAsync(id);
+        return Ok(ToResponse(updatedBook!));
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

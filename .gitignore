@@ -6,3 +6,5 @@ CHECKLIST.*
 *.db-shm
 *.db-wal
 .vs/
+frontend/node_modules/
+frontend/dist/

@@ -1,10 +1,16 @@
 # BibliotecaApi
 
-API Web em C# para gerenciamento de biblioteca, desenvolvida para a avaliacao A2-1 de Desenvolvimento Web Avancado.
+API Web em C# e frontend React para gerenciamento de biblioteca, desenvolvido para as avaliacoes A2-1 e A2-2 de Desenvolvimento Web Avancado.
+
+## Integrantes da equipe
+
+- Nome do integrante 1
+- Nome do integrante 2
+- Nome do integrante 3
 
 ## Tema
 
-Sistema de biblioteca com autores, livros, membros e emprestimos.
+Sistema de biblioteca com autores, livros, membros e emprestimos. O frontend em React consome a Web API, usa autenticacao JWT, exibe dados dinamicamente e permite operar o acervo por uma interface minimalista.
 
 Entidades relacionadas:
 
@@ -19,6 +25,11 @@ Entidades relacionadas:
 - SQLite
 - Repository Pattern
 - Controllers e Models separados em camadas
+- JWT Bearer Authentication
+- React
+- Vite
+- Fetch API
+- Lucide React
 
 ## Regras de negocio
 
@@ -42,6 +53,8 @@ Generos aceitos para livros:
 
 ## Como executar
 
+### Backend
+
 ```bash
 dotnet restore
 dotnet run
@@ -51,7 +64,49 @@ A API sobe em `http://localhost:5056` usando o perfil HTTP do projeto.
 
 O banco SQLite `biblioteca.db` e criado automaticamente na primeira execucao pelo Entity Framework. O arquivo `database.sql` tambem contem o script de criacao e carga inicial.
 
+### Frontend
+
+Em outro terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+O frontend sobe em `http://localhost:5173` e consome `http://localhost:5056/api`. Para usar outro endereco da API, crie um arquivo `frontend/.env` com:
+
+```bash
+VITE_API_URL=http://localhost:5056/api
+```
+
+## Autenticacao JWT
+
+A aplicacao possui login JWT em `POST /api/auth/login`. O frontend armazena o token no `localStorage` e envia o cabecalho `Authorization: Bearer <token>` nas requisicoes com `fetch`.
+
+Credenciais de demonstracao:
+
+```text
+E-mail: admin@biblioteca.com
+Senha: biblioteca123
+```
+
+Endpoint protegido para validacao do token:
+
+| Metodo | Rota | Descricao |
+| --- | --- | --- |
+| GET | `/api/auth/me` | Retorna os dados do usuario autenticado |
+
+Todas as rotas dos controllers exigem token, exceto `POST /api/auth/login`.
+
 ## Endpoints
+
+### Autenticacao
+
+| Metodo | Rota | Descricao |
+| --- | --- | --- |
+| POST | `/api/auth/login` | Gera um token JWT |
+| GET | `/api/auth/me` | Endpoint protegido para validar token |
 
 ### Livros
 
@@ -61,6 +116,7 @@ O banco SQLite `biblioteca.db` e criado automaticamente na primeira execucao pel
 | GET | `/api/books/{id}` | Busca livro por ID |
 | POST | `/api/books` | Cria livro |
 | PUT | `/api/books/{id}` | Atualiza livro |
+| PATCH | `/api/books/{id}/copies` | Atualiza somente exemplares disponiveis |
 | DELETE | `/api/books/{id}` | Remove livro sem historico de emprestimo |
 
 Exemplo de criacao:

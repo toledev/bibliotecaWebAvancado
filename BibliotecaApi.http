@@ -1,16 +1,36 @@
 @BibliotecaApi_HostAddress = http://localhost:5056
+@Token = cole-o-token-aqui
+
+POST {{BibliotecaApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@biblioteca.com",
+  "password": "biblioteca123"
+}
+
+###
+
+GET {{BibliotecaApi_HostAddress}}/api/auth/me
+Authorization: Bearer {{Token}}
+Accept: application/json
+
+###
 
 GET {{BibliotecaApi_HostAddress}}/api/books
+Authorization: Bearer {{Token}}
 Accept: application/json
 
 ###
 
 GET {{BibliotecaApi_HostAddress}}/api/books/1
+Authorization: Bearer {{Token}}
 Accept: application/json
 
 ###
 
 POST {{BibliotecaApi_HostAddress}}/api/books
+Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
@@ -25,6 +45,7 @@ Content-Type: application/json
 ###
 
 PUT {{BibliotecaApi_HostAddress}}/api/books/1
+Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
@@ -38,16 +59,29 @@ Content-Type: application/json
 
 ###
 
+PATCH {{BibliotecaApi_HostAddress}}/api/books/1/copies
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+  "copiesAvailable": 5
+}
+
+###
+
 DELETE {{BibliotecaApi_HostAddress}}/api/books/3
+Authorization: Bearer {{Token}}
 
 ###
 
 GET {{BibliotecaApi_HostAddress}}/api/authors
+Authorization: Bearer {{Token}}
 Accept: application/json
 
 ###
 
 POST {{BibliotecaApi_HostAddress}}/api/loans
+Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
@@ -58,6 +92,7 @@ Content-Type: application/json
 ###
 
 PUT {{BibliotecaApi_HostAddress}}/api/loans/1/return
+Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
@@ -67,4 +102,5 @@ Content-Type: application/json
 ###
 
 GET {{BibliotecaApi_HostAddress}}/api/loans/overdue
+Authorization: Bearer {{Token}}
 Accept: application/json

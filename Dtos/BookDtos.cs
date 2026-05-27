@@ -38,3 +38,9 @@ public class BookResponseDto
     public string AuthorName { get; set; } = string.Empty;
     public int ActiveLoans { get; set; }
 }
+
+public class BookCopiesPatchDto
+{
+    [Range(0, 1000)]
+    public int CopiesAvailable { get; set; }
+}
